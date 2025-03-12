@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        h1{
+            background-color: blue;
+        }
+        @media (min-width:300px)and(max-width:900px)(orientation:portrait){
+            h1{
+              background-color:brown;
+            }
+            p{
+                background-color:green;
+            }
+        }
+        @media(min-width:300px)and(max-width:900px)(orientation:portrait){
+            h1{
+                background-color:red;
+            }
+            p{
+                background-color:aqua;
+            }
+        }
+
+        @media(min-width:300px)and(max-width:900px)and(orientation:portrait){
+            h1{
+                background-color:skyblue;
+            }
+            p{
+                background-color:violet;
+            }
+        }
+
+    </style>
+</head>
+<body>
+    <h1>welcome to CSS</h1>
+    <p>this is my 4 css class</p>
+</body>
+</html>
