@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=<device-width>, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <button id="buttonId">clickon</button>
+    <ul id="ulId"></ul>
+    <script>
+        let buttonEle = document.getElementById('buttonId')
+        let ulEle = document.getElementById('ulId')
+        var productsData = [
+            {
+                "id": 1,
+                "name": "laptop",
+                "price": 10000,
+                "description": "high performance",
+                "category": "Electronics"
+
+            },
+            {
+                "id": 2,
+                "name": "smartPhone",
+                "price": 50000,
+                "description": "Latest Model",
+                "category": "Electronics"
+            },
+            {
+                "id": 3,
+                "name": "HeadPhones",
+                "price": 200,
+                "description": "Noice Cancelling",
+                "category": "Accessories"
+            },
+        ];
+          
+
+            buttonEle.addEventListener('click',()=>{
+          
+            productsData.forEach((obj)=>{
+                let liEl = document.createElement("li")
+                liEl.textContent = obj.name
+                ulEle.appendChild(liEl)
+
+            })
+        });
+
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Weather Forecast</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      height: 100vh;
+      background: linear-gradient(135deg,  #66ea8e, #a24b4b);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .container {
+      background: #151212;
+      padding: 30px;
+      border-radius: 20px;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+      text-align: center;
+      max-width: 400px;
+      width: 100%;
+      transition: 0.3s;
+    }
+
+    h1 {
+      margin-bottom: 20px;
+      font-size: 28px;
+      color:#a24b4b;
+    }
+
+    input {
+      padding: 12px;
+      width: 80%;
+      font-size: 16px;
+      border-radius: 10px;
+      border: 1px solid #ccc;
+      outline: none;
+      margin-bottom: 15px;
+    }
+
+    button {
+      padding: 12px 20px;
+      font-size: 16px;
+      border: none;
+      border-radius: 10px;
+      background: #667eea;
+      color: #fff;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    button:hover {
+      background: #5a67d8;
+    }
+
+    #result {
+      margin-top: 20px;
+      color: #333;
+    }
+
+    #result img {
+      width: 64px;
+      height: 64px;
+    }
+
+    p {
+      margin: 8px 0;
+    }
+
+    @media (max-width: 480px) {
+      .container {
+        padding: 20px;
+      }
+
+      input {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Weather Forecast</h1>
+    <input type="text" id="area" placeholder="Enter the area" />
+    <br />
+    <button id="button" onclick="fetchData()">Click here</button>
+    <div id="result"></div>
+  </div>
+
+  <script>
+    let inputelement = document.getElementById("area");
+    let resultElement = document.getElementById("result");
+
+    function fetchData() {
+      let area = inputelement.value.trim();
+
+      if (!area) {
+        resultElement.innerHTML = "<p>Please enter an area.</p>";
+        return;
+      }
+
+      let apiKey = "3b1ea6e2b349447594b114913250904";
+      let url = `http://api.weatherapi.com/v1/current.json?key=${apiKey}&q=${area}&aqi=no`;
+
+      fetch(url)
+        .then(response => {
+          if (!response.ok) {
+            throw new Error("Weather data not found for the entered area.");
+          }
+          return response.json();
+        })
+        .then(data => {
+          let output = `
+            <h2>${data.location.name}, ${data.location.country}</h2>
+            <p><strong>Temperature:</strong> ${data.current.temp_c} °C</p>
+            <p><strong>Condition:</strong> ${data.current.condition.text}</p>
+            <img src="${data.current.condition.icon}" alt="weather icon" />
+            <p><strong>Wind:</strong> ${data.current.wind_kph} kph</p>
+            <p><strong>Humidity:</strong> ${data.current.humidity}%</p>
+          `;
+          resultElement.innerHTML = output;
+        })
+        .catch(error => {
+          resultElement.innerHTML = `<p style="color:red;">${error.message}</p>`;
+          console.error('Error fetching weather data:', error);
+        });
+    }
+  </script>
+</body>
+</html>
